@@ -1,13 +1,12 @@
-const Feedback = require("./models/Feedback.js");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const Feedback = require("./models/Feedback");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
 
 // MongoDB Connection
 mongoose
@@ -19,71 +18,57 @@ mongoose
     console.log(error);
   });
 
-
-// Test Route
+// Test route
 app.get("/", (req, res) => {
-  res.send("Server is running successfully!");
+  res.send("Server is running successfully");
 });
 
-
-// Add Feedback
+// Submit feedback
 app.post("/feedback", async (req, res) => {
   try {
     const feedback = new Feedback(req.body);
-
     await feedback.save();
 
-    res.json({
+    res.status(201).json({
       message: "Feedback submitted successfully"
     });
 
   } catch (error) {
     res.status(500).json({
-      message: error.message
+      message: "Error submitting feedback",
+      error: error.message
     });
   }
 });
 
-
-// Get Feedback
+// Get feedback
 app.get("/feedback", async (req, res) => {
   try {
     const feedbacks = await Feedback.find();
-
     res.json(feedbacks);
 
   } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+// Delete feedback
+app.delete("/feedback/:id", async (req, res) => {
+  try {
+    await Feedback.findByIdAndDelete(req.params.id);
+
+    res.json({
+      message: "Feedback deleted successfully"
+    });
+
+  } catch (error) {
     res.status(500).json({
-      message: error.message
+      message: "Delete failed"
     });
   }
 });
 
 
-const deleteFeedback = async (id) => {
-  console.log("ID to delete:", id);
-
-  try {
-    const response = await axios.delete(
-      `http://localhost:5000/feedback/${id}`
-    );
-
-    console.log(response.data);
-
-    alert("Deleted successfully");
-
-    setFeedbacks(
-      feedbacks.filter((item) => item._id !== id)
-    );
-
-  } catch (error) {
-    console.log(error.response);
-    alert("Delete failed");
-  }
-};
-
-
-// Start Server
 app.listen(5000, () => {
   console.log("Server started on port 5000");
 });
