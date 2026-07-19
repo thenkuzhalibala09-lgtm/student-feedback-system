@@ -13,6 +13,10 @@ mongoose
   .connect("mongodb+srv://thenkuzhalibala09_db_user:hNPWSRTVSMHTGDbd@cluster0.cv6xgoq.mongodb.net/studentfeedback?appName=Cluster0")
   .then(() => {
     console.log("MongoDB connected successfully");
+
+    app.listen(5000, () => {
+      console.log("Server started on port 5000");
+    });
   })
   .catch((error) => {
     console.log("MongoDB Error:", error);
@@ -75,7 +79,3 @@ app.delete("/feedback/:id", async (req, res) => {
   }
 });
 
-// Start server
-app.listen(5000, () => {
-  console.log("Server started on port 5000");
-});
