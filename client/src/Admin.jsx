@@ -12,7 +12,7 @@ function Admin() {
 
   const loadFeedback = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/feedback");
+      const response = await axios.get("http://student-feedback-system-ocfd.onrender.com/feedback");
       setFeedbacks(response.data);
     } catch (error) {
       console.log(error);

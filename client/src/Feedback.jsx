@@ -21,7 +21,7 @@ function Feedback() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/feedback", formData);
+      await axios.post("http://student-feedback-system-ocfd.onrender.com/feedback", formData);
 
       alert("✅ Feedback submitted successfully!");
 
