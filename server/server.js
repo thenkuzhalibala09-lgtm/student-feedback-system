@@ -12,7 +12,7 @@ app.post("/feedback", async (req, res) => {
     });
 
   } catch (error) {
-    console.log("SAVE ERROR:", error);
+    console.log("SAVE ERROR:", error.message);
 
     res.status(500).json({
       message: error.message
