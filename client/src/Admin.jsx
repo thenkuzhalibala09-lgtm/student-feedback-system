@@ -12,7 +12,7 @@ function Admin() {
 
   const loadFeedback = async () => {
     try {
-      const response = await axios.get("http://student-feedback-system-ocfd.onrender.com/feedback");
+      const response = await axios.get("https://student-feedback-system-ocfd.onrender.com/feedback");
       setFeedbacks(response.data);
     } catch (error) {
       console.log(error);
@@ -24,7 +24,7 @@ function Admin() {
       console.log("Deleting ID:", id);
 
       const response = await axios.delete(
-        `http://localhost:5000/feedback/${id}`
+        `https://student-feedback-system-ocfd.onrender.com/feedback/${id}`
       );
 
       console.log(response.data);
